@@ -1,4 +1,4 @@
-## discourse-oauth2-basic
+## discourse-oauth2-enl-v
 
 This plugin allows you to use a basic OAuth2 provider as authentication for
 Discourse. It should work with many providers, with the caveat that they
@@ -18,7 +18,7 @@ look for other login providers in our [Github Repo](https://github.com/discourse
 First, set up your Discourse application remotely on your OAuth2 provider.
 It will require a **Redirect URI** which should be:
 
-`http://DISCOURSE_HOST/auth/oauth2_basic/callback`
+`http://DISCOURSE_HOST/auth/oauth2_enl_v/callback`
 
 Replace `DISCOURSE_HOST` with the approriate value, and make sure you are
 using `https` if enabled. The OAuth2 provider should supply you with a
@@ -27,15 +27,15 @@ client ID and secret, as well as a couple of URLs.
 Visit your **Admin** > **Settings** > **Login** and fill in the basic
 configuration for the OAuth2 provider:
 
-* `oauth2_enabled` - check this off to enable the feature
+* `oauth2_enl_v_enabled` - check this off to enable the feature
 
-* `oauth2_client_id` - the client ID from your provider
+* `oauth2_enl_v_client_id` - the client ID from your provider
 
-* `oauth2_client_secret` - the client secret from your provider
+* `oauth2_enl_v_client_secret` - the client secret from your provider
 
-* `oauth2_authorize_url` - your provider's authorization URL
+* `oauth2_enl_v_authorize_url` - your provider's authorization URL
 
-* `oauth2_token_url` - your provider's token URL.
+* `oauth2_enl_v_token_url` - your provider's token URL.
 
 If you can't figure out the values for the above settings, check the
 developer documentation from your provider or contact their customer
@@ -57,7 +57,7 @@ to `https://api.soundcloud.com/me?oauth_token=A_VALID_TOKEN` and
 will get back a JSON object containing information on the user.
 
 To configure this on Discourse, we need to set the value of the
-`oauth2_user_json_url` setting. In this case, we'll input the value of:
+`oauth2_enl_v_user_json_url` setting. In this case, we'll input the value of:
 
 ```
 https://api.soundcloud.com/me?oauth_token=:token
@@ -86,8 +86,8 @@ response from SoundCloud:
 }
 ```
 
-The `oauth2_json_user_id_path`, `oauth2_json_username_path`, `oauth2_json_name_path` and
-`oauth2_json_email_path` variables should be set to point to the appropriate attributes
+The `oauth2_enl_v_json_user_id_path`, `oauth2_enl_v_json_username_path`, `oauth2_enl_v_json_name_path` and
+`oauth2_enl_v_json_email_path` variables should be set to point to the appropriate attributes
 in the JSON.
 
 The only mandatory attribute is *id* - we need that so when the user logs on in the future
@@ -97,9 +97,9 @@ make the signup process faster for the user as they will be pre-populated in the
 Here's how I configured the JSON path settings:
 
 ```
-  oauth2_json_user_id_path: 'id'
-  oauth2_json_username_path: 'permalink'
-  oauth2_json_name_path: 'full_name'
+  oauth2_enl_v_json_user_id_path: 'id'
+  oauth2_enl_v_json_username_path: 'permalink'
+  oauth2_enl_v_json_name_path: 'full_name'
 ```
 
 I used `permalink` because it seems more similar to what Discourse expects for a username
@@ -121,45 +121,40 @@ So for example if the API returned a different structure like this:
 }
 ```
 
-You could use `user.id` for the `oauth2_json_user_id_path` and `user.email.address` for `oauth2_json_email_path`.
+You could use `user.id` for the `oauth2_enl_v_json_user_id_path` and `user.email.address` for `oauth2_enl_v_json_email_path`.
 
 ## Part 3: Test it with Google OAuth 2.0 Server
 
 To test this plugin in your local dev environment you can use Google OAuth 2.0 Server. Follow [this guide](https://support.google.com/cloud/answer/6158849?hl=en) to create new OAuth client id & secret.
 
 * While creating it choose "Web application" as "Application type".
-* Add `http://localhost:3000` in "Authorized JavaScript origins" and `http://localhost:3000/auth/oauth2_basic/callback` in "Authorized redirect URIs" fields.
+* Add `http://localhost:3000` in "Authorized JavaScript origins" and `http://localhost:3000/auth/oauth2_enl_v/callback` in "Authorized redirect URIs" fields.
 * Then add following site settings in your admin panel.
 ```json
 {
-  "oauth2_enabled": true,
-  "oauth2_client_id": "YOUR_PROJECT_CLIENT_ID",
-  "oauth2_client_secret": "YOUR_PROJECT_CLIENT_SECRET",
-  "oauth2_authorize_url": "https://accounts.google.com/o/oauth2/auth",
-  "oauth2_token_url": "https://www.googleapis.com/oauth2/v3/token",
-  "oauth2_user_json_url": "https://www.googleapis.com/userinfo/v2/me",
-  "oauth2_json_user_id_path": "id",
-  "oauth2_json_user_name_path": "name",
-  "oauth2_json_user_email_path": "email",
-  "oauth2_json_user_avatar_path": "picture",
-  "oauth2_email_verified": true,
-  "oauth2_scope": "https://www.googleapis.com/auth/userinfo.email"
+  "oauth2_enl_v_enabled": true,
+  "oauth2_enl_v_client_id": "YOUR_PROJECT_CLIENT_ID",
+  "oauth2_enl_v_client_secret": "YOUR_PROJECT_CLIENT_SECRET",
+  "oauth2_enl_v_authorize_url": "https://accounts.google.com/o/oauth2/auth",
+  "oauth2_enl_v_token_url": "https://www.googleapis.com/oauth2/v3/token",
+  "oauth2_enl_v_user_json_url": "https://www.googleapis.com/userinfo/v2/me",
+  "oauth2_enl_v_json_user_id_path": "id",
+  "oauth2_enl_v_json_user_name_path": "name",
+  "oauth2_enl_v_json_user_email_path": "email",
+  "oauth2_enl_v_json_user_avatar_path": "picture",
+  "oauth2_enl_v_email_verified": true,
+  "oauth2_enl_v_scope": "https://www.googleapis.com/auth/userinfo.email"
 }
 ```
 That's it! You can check it now in your browser.
 
 Good luck setting up custom OAuth2 on your Discourse!
 
-### Issues
-
-Please use [this topic on meta](https://meta.discourse.org/t/oauth2-basic-support/33879) to discuss
-issues with the plugin, including bugs and feature reqests.
-
 ### How to run tests
 
 Make sure the plugin has been installed, then from the discourse directory run:
 
-    LOAD_PLUGINS=1 bundle exec rspec plugins/discourse-oauth2-basic/spec/plugin_spec.rb
+    LOAD_PLUGINS=1 bundle exec rspec plugins/discourse-oauth2-enl-v/spec/plugin_spec.rb
 
 
 ### License

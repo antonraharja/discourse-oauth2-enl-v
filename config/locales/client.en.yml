@@ -1,6 +1,6 @@
 en:
   js:
     login:
-      oauth2_basic:
-        name: "OAuth 2"
+      oauth2_enl_v:
+        name: "V"
       

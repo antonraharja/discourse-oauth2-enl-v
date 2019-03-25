@@ -1,15 +1,15 @@
-# name: discourse-oauth2-basic
-# about: Generic OAuth2 Plugin
+# name: discourse-oauth2-enl-v
+# about: ENL V OAuth2 Plugin
 # version: 0.3
-# authors: Robin Ward
-# url: https://github.com/discourse/discourse-oauth2-basic
+# authors: Anton Raharja
+# url: https://github.com/antonraharja/discourse-oauth2-enl-v
 
 require_dependency 'auth/oauth2_authenticator.rb'
 
-enabled_site_setting :oauth2_enabled
+enabled_site_setting :oauth2_enl_v_enabled
 
 class ::OmniAuth::Strategies::Oauth2Basic < ::OmniAuth::Strategies::OAuth2
-  option :name, "oauth2_basic"
+  option :name, "oauth2_enl_v"
   info do
     {
       id: access_token['id']
@@ -23,31 +23,31 @@ end
 
 class OAuth2BasicAuthenticator < ::Auth::OAuth2Authenticator
   def register_middleware(omniauth)
-    omniauth.provider :oauth2_basic,
-                      name: 'oauth2_basic',
+    omniauth.provider :oauth2_enl_v,
+                      name: 'oauth2_enl_v',
                       setup: lambda { |env|
                         opts = env['omniauth.strategy'].options
-                        opts[:client_id] = SiteSetting.oauth2_client_id
-                        opts[:client_secret] = SiteSetting.oauth2_client_secret
+                        opts[:client_id] = SiteSetting.oauth2_enl_v_client_id
+                        opts[:client_secret] = SiteSetting.oauth2_enl_v_client_secret
                         opts[:provider_ignores_state] = false
                         opts[:client_options] = {
-                          authorize_url: SiteSetting.oauth2_authorize_url,
-                          token_url: SiteSetting.oauth2_token_url,
-                          token_method: SiteSetting.oauth2_token_url_method.downcase.to_sym
+                          authorize_url: SiteSetting.oauth2_enl_v_authorize_url,
+                          token_url: SiteSetting.oauth2_enl_v_token_url,
+                          token_method: SiteSetting.oauth2_enl_v_token_url_method.downcase.to_sym
                         }
-                        opts[:authorize_options] = SiteSetting.oauth2_authorize_options.split("|").map(&:to_sym)
+                        opts[:authorize_options] = SiteSetting.oauth2_enl_v_authorize_options.split("|").map(&:to_sym)
 
-                        if SiteSetting.oauth2_send_auth_header?
+                        if SiteSetting.oauth2_enl_v_send_auth_header?
                           opts[:token_params] = { headers: { 'Authorization' => basic_auth_header } }
                         end
-                        unless SiteSetting.oauth2_scope.blank?
-                          opts[:scope] = SiteSetting.oauth2_scope
+                        unless SiteSetting.oauth2_enl_v_scope.blank?
+                          opts[:scope] = SiteSetting.oauth2_enl_v_scope
                         end
                       }
   end
 
   def basic_auth_header
-    "Basic " + Base64.strict_encode64("#{SiteSetting.oauth2_client_id}:#{SiteSetting.oauth2_client_secret}")
+    "Basic " + Base64.strict_encode64("#{SiteSetting.oauth2_enl_v_client_id}:#{SiteSetting.oauth2_enl_v_client_secret}")
   end
 
   def walk_path(fragment, segments)
@@ -64,7 +64,7 @@ class OAuth2BasicAuthenticator < ::Auth::OAuth2Authenticator
   end
 
   def json_walk(result, user_json, prop)
-    path = SiteSetting.send("oauth2_json_#{prop}_path")
+    path = SiteSetting.send("oauth2_enl_v_json_#{prop}_path")
     if path.present?
       segments = path.split('.')
       val = walk_path(user_json, segments)
@@ -73,12 +73,12 @@ class OAuth2BasicAuthenticator < ::Auth::OAuth2Authenticator
   end
 
   def log(info)
-    Rails.logger.warn("OAuth2 Debugging: #{info}") if SiteSetting.oauth2_debug_auth
+    Rails.logger.warn("OAuth2 Debugging: #{info}") if SiteSetting.oauth2_enl_v_debug_auth
   end
 
   def fetch_user_details(token, id)
-    user_json_url = SiteSetting.oauth2_user_json_url.sub(':token', token.to_s).sub(':id', id.to_s)
-    user_json_method = SiteSetting.oauth2_user_json_url_method
+    user_json_url = SiteSetting.oauth2_enl_v_user_json_url.sub(':token', token.to_s).sub(':id', id.to_s)
+    user_json_method = SiteSetting.oauth2_enl_v_user_json_url_method
 
     log("user_json_url: #{user_json_method} #{user_json_url}")
 
@@ -118,27 +118,27 @@ class OAuth2BasicAuthenticator < ::Auth::OAuth2Authenticator
     result.name = user_details[:name]
     result.username = user_details[:username]
     result.email = user_details[:email]
-    result.email_valid = result.email.present? && SiteSetting.oauth2_email_verified?
+    result.email_valid = result.email.present? && SiteSetting.oauth2_enl_v_email_verified?
     avatar_url = user_details[:avatar]
 
-    current_info = ::PluginStore.get("oauth2_basic", "oauth2_basic_user_#{user_details[:user_id]}")
+    current_info = ::PluginStore.get("oauth2_enl_v", "oauth2_enl_v_user_#{user_details[:user_id]}")
     if current_info
       result.user = User.where(id: current_info[:user_id]).first
-    elsif SiteSetting.oauth2_email_verified?
+    elsif SiteSetting.oauth2_enl_v_email_verified?
       result.user = User.find_by_email(result.email)
       if result.user && user_details[:user_id]
-        ::PluginStore.set("oauth2_basic", "oauth2_basic_user_#{user_details[:user_id]}", user_id: result.user.id)
+        ::PluginStore.set("oauth2_enl_v", "oauth2_enl_v_user_#{user_details[:user_id]}", user_id: result.user.id)
       end
     end
 
     download_avatar(result.user, avatar_url)
 
-    result.extra_data = { oauth2_basic_user_id: user_details[:user_id], avatar_url: avatar_url }
+    result.extra_data = { oauth2_enl_v_user_id: user_details[:user_id], avatar_url: avatar_url }
     result
   end
 
   def after_create_account(user, auth)
-    ::PluginStore.set("oauth2_basic", "oauth2_basic_user_#{auth[:extra_data][:oauth2_basic_user_id]}", user_id: user.id)
+    ::PluginStore.set("oauth2_enl_v", "oauth2_enl_v_user_#{auth[:extra_data][:oauth2_enl_v_user_id]}", user_id: user.id)
     download_avatar(user, auth[:extra_data][:avatar_url])
   end
 
@@ -151,19 +151,19 @@ class OAuth2BasicAuthenticator < ::Auth::OAuth2Authenticator
   end
 
   def enabled?
-    SiteSetting.oauth2_enabled
+    SiteSetting.oauth2_enl_v_enabled
   end
 end
 
-auth_provider title_setting: "oauth2_button_title",
-              enabled_setting: "oauth2_enabled",
-              authenticator: OAuth2BasicAuthenticator.new('oauth2_basic'),
+auth_provider title_setting: "oauth2_enl_v_button_title",
+              enabled_setting: "oauth2_enl_v_enabled",
+              authenticator: OAuth2BasicAuthenticator.new('oauth2_enl_v'),
               message: "OAuth2",
-              full_screen_login_setting: "oauth2_full_screen_login"
+              full_screen_login_setting: "oauth2_enl_v_full_screen_login"
 
 register_css <<CSS
 
-  button.btn-social.oauth2_basic {
+  button.btn-social.oauth2_enl_v {
     background-color: #6d6d6d;
   }
 

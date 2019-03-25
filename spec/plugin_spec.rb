@@ -28,7 +28,7 @@ require_relative '../plugin.rb'
 describe OAuth2BasicAuthenticator do
   context 'after_authenticate' do
     let(:user) { Fabricate(:user) }
-    let(:authenticator) { OAuth2BasicAuthenticator.new('oauth2_basic') }
+    let(:authenticator) { OAuth2BasicAuthenticator.new('oauth2_enl_v') }
 
     let(:auth) do
       { 'credentials' => { 'token': 'token' },
@@ -37,7 +37,7 @@ describe OAuth2BasicAuthenticator do
     end
 
     before(:each) do
-      SiteSetting.oauth2_email_verified = true
+      SiteSetting.oauth2_enl_v_email_verified = true
     end
 
     it 'finds user by email' do
@@ -98,36 +98,36 @@ describe OAuth2BasicAuthenticator do
   end
 
   it 'can walk json' do
-    authenticator = OAuth2BasicAuthenticator.new('oauth2_basic')
+    authenticator = OAuth2BasicAuthenticator.new('oauth2_enl_v')
     json_string = '{"user":{"id":1234,"email":{"address":"test@example.com"}}}'
-    SiteSetting.oauth2_json_email_path = 'user.email.address'
+    SiteSetting.oauth2_enl_v_json_email_path = 'user.email.address'
     result = authenticator.json_walk({}, JSON.parse(json_string), :email)
 
     expect(result).to eq "test@example.com"
   end
 
   it 'can walk json that contains an array' do
-    authenticator = OAuth2BasicAuthenticator.new('oauth2_basic')
+    authenticator = OAuth2BasicAuthenticator.new('oauth2_enl_v')
     json_string = '{"email":"test@example.com","identities":[{"user_id":"123456789","provider":"auth0","isSocial":false}]}'
-    SiteSetting.oauth2_json_user_id_path = 'identities.[].user_id'
+    SiteSetting.oauth2_enl_v_json_user_id_path = 'identities.[].user_id'
     result = authenticator.json_walk({}, JSON.parse(json_string), :user_id)
 
     expect(result).to eq "123456789"
   end
 
   it 'can walk json and handle an empty array' do
-    authenticator = OAuth2BasicAuthenticator.new('oauth2_basic')
+    authenticator = OAuth2BasicAuthenticator.new('oauth2_enl_v')
     json_string = '{"email":"test@example.com","identities":[]}'
-    SiteSetting.oauth2_json_user_id_path = 'identities.[].user_id'
+    SiteSetting.oauth2_enl_v_json_user_id_path = 'identities.[].user_id'
     result = authenticator.json_walk({}, JSON.parse(json_string), :user_id)
 
     expect(result).to eq nil
   end
 
   it 'can walk json and download avatar' do
-    authenticator = OAuth2BasicAuthenticator.new('oauth2_basic')
+    authenticator = OAuth2BasicAuthenticator.new('oauth2_enl_v')
     json_string = '{"user":{"avatar":"http://example.com/1.png"}}'
-    SiteSetting.oauth2_json_avatar_path = 'user.avatar'
+    SiteSetting.oauth2_enl_v_json_avatar_path = 'user.avatar'
     result = authenticator.json_walk({}, JSON.parse(json_string), :avatar)
 
     expect(result).to eq 'http://example.com/1.png'
