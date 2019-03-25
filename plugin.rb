@@ -21,7 +21,7 @@ class ::OmniAuth::Strategies::Oauth2Basic < ::OmniAuth::Strategies::OAuth2
   end
 end
 
-class OAuth2BasicAuthenticator < ::Auth::OAuth2Authenticator
+class OAuth2EnlVAuthenticator < ::Auth::OAuth2Authenticator
   def register_middleware(omniauth)
     omniauth.provider :oauth2_enl_v,
                       name: 'oauth2_enl_v',
@@ -157,7 +157,7 @@ end
 
 auth_provider title_setting: "oauth2_enl_v_button_title",
               enabled_setting: "oauth2_enl_v_enabled",
-              authenticator: OAuth2BasicAuthenticator.new('oauth2_enl_v'),
+              authenticator: OAuth2EnlVAuthenticator.new('oauth2_enl_v'),
               message: "OAuth2",
               full_screen_login_setting: "oauth2_enl_v_full_screen_login"
 
