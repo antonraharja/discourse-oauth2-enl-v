@@ -12,7 +12,7 @@ en:
     oauth2_enl_v_json_username_path: 'Path in the V OAuth2 User JSON to the username. eg: user.username'
     oauth2_enl_v_json_name_path: "Path in the V OAuth2 User JSON to the user's full: user.name.full"
     oauth2_enl_v_json_email_path: "Path in the V OAuth2 User JSON to the user's email: user.email.primary"
-    oauth2_enl_v_json_avatar_path: "Path in the Oauth2 User JSON to the user's avatar: user.avatar_url"
+    oauth2_enl_v_json_avatar_path: "Path in the V Oauth2 User JSON to the user's avatar: user.avatar_url"
     oauth2_enl_v_email_verified: "Check this if the V OAuth2 site has verified the email"
     oauth2_enl_v_send_auth_header: "Send the token as an HTTP Authorization header"
     oauth2_enl_v_debug_auth: "Include rich debugging information in your logs"

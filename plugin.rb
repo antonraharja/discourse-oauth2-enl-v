@@ -8,7 +8,7 @@ require_dependency 'auth/oauth2_authenticator.rb'
 
 enabled_site_setting :oauth2_enl_v_enabled
 
-class ::OmniAuth::Strategies::Oauth2Basic < ::OmniAuth::Strategies::OAuth2
+class ::OmniAuth::Strategies::Oauth2EnlV < ::OmniAuth::Strategies::OAuth2
   option :name, "oauth2_enl_v"
   info do
     {
@@ -73,7 +73,7 @@ class OAuth2EnlVAuthenticator < ::Auth::OAuth2Authenticator
   end
 
   def log(info)
-    Rails.logger.warn("OAuth2 Debugging: #{info}") if SiteSetting.oauth2_enl_v_debug_auth
+    Rails.logger.warn("OAuth2EnlV Debugging: #{info}") if SiteSetting.oauth2_enl_v_debug_auth
   end
 
   def fetch_user_details(token, id)
