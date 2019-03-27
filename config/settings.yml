@@ -5,8 +5,14 @@ login:
   oauth2_enl_v_client_id: ''
   oauth2_enl_v_client_secret: ''
   oauth2_enl_v_authorize_url: ''
+    default: 'https://v.enl.one/oauth/authorize'
+    client: true
   oauth2_enl_v_token_url: ''
+    default: 'https://v.enl.one/oauth/token'
+    client: true
   oauth2_enl_v_user_json_url: ''
+    default: 'https://v.enl.one/oauth/api/v1/userinfo'
+    client: true
   oauth2_enl_v_token_url_method:
     default: 'POST'
     type: enum
@@ -20,20 +26,32 @@ login:
       - GET
       - POST
   oauth2_enl_v_json_user_id_path: ''
+    default: 'email'
+    client: true
   oauth2_enl_v_json_username_path: ''
+    default: 'nickname'
+    client: true
   oauth2_enl_v_json_name_path: ''
+    default: 'name'
+    client: true
   oauth2_enl_v_json_email_path: ''
+    default: 'email'
+    client: true
   oauth2_enl_v_json_avatar_path: ''
-  oauth2_enl_v_email_verified: false
+    default: 'picture'
+    client: true
+  oauth2_enl_v_email_verified: true
   oauth2_enl_v_send_auth_header: true
-  oauth2_enl_v_debug_auth: false
+  oauth2_enl_v_debug_auth: true
   oauth2_enl_v_authorize_options:
     default: 'scope'
     type: list
   oauth2_enl_v_scope: ''
+    default: 'openid email profile googledata'
+    client: true
   oauth2_enl_v_button_title:
     default: 'with V'
     client: true
   oauth2_enl_v_full_screen_login:
-    default: false
+    default: true
     client: true
