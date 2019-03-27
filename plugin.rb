@@ -158,13 +158,13 @@ end
 auth_provider title_setting: "oauth2_enl_v_button_title",
               enabled_setting: "oauth2_enl_v_enabled",
               authenticator: OAuth2EnlVAuthenticator.new('oauth2_enl_v'),
-              message: "OAuth2",
+              message: "Project V",
               full_screen_login_setting: "oauth2_enl_v_full_screen_login"
 
 register_css <<CSS
 
   button.btn-social.oauth2_enl_v {
-    background-color: #6d6d6d;
+    background-color: #19451e;
   }
 
 CSS
