@@ -6,13 +6,13 @@ en:
     oauth2_enl_v_authorize_url: 'Authorization URL for V OAuth2'
     oauth2_enl_v_token_url: 'Token URL for V OAuth2'
     oauth2_enl_v_token_url_method: 'Method used to fetch the Token URL'
-    oauth2_enl_v_user_json_url: 'URL to fetch user JSON for V OAuth2 (note we replace :id with the id returned by OAuth call and :token with the token id)'
+    oauth2_enl_v_user_json_url: 'JSON URL to fetch user JSON for V OAuth2'
     oauth2_enl_v_user_json_url_method: 'Method used to fetch the user JSON URL'
-    oauth2_enl_v_json_user_id_path: 'Path in the V OAuth2 User JSON to the user id. eg: user.id'
-    oauth2_enl_v_json_username_path: 'Path in the V OAuth2 User JSON to the username. eg: user.username'
-    oauth2_enl_v_json_name_path: "Path in the V OAuth2 User JSON to the user's full: user.name.full"
-    oauth2_enl_v_json_email_path: "Path in the V OAuth2 User JSON to the user's email: user.email.primary"
-    oauth2_enl_v_json_avatar_path: "Path in the V Oauth2 User JSON to the user's avatar: user.avatar_url"
+    oauth2_enl_v_json_user_id_path: 'Path in the V OAuth2 User JSON to the user id'
+    oauth2_enl_v_json_username_path: 'Path in the V OAuth2 User JSON to the username'
+    oauth2_enl_v_json_name_path: "Path in the V OAuth2 User JSON to the user's full name"
+    oauth2_enl_v_json_email_path: "Path in the V OAuth2 User JSON to the user's email"
+    oauth2_enl_v_json_avatar_path: "Path in the V Oauth2 User JSON to the user's avatar"
     oauth2_enl_v_email_verified: "Check this if the V OAuth2 site has verified the email"
     oauth2_enl_v_send_auth_header: "Send the token as an HTTP Authorization header"
     oauth2_enl_v_debug_auth: "Include rich debugging information in your logs"
