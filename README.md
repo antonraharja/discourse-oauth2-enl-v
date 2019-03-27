@@ -2,7 +2,7 @@
 
 | Item         | Info                   |
 | ------------ | ---------------------- |
-| Project name | discourse-oauth2-enl-v |
+| Project      | discourse-oauth2-enl-v |
 | Version      | 0.1                    |
 | Maintainer   | audazel                |
 
@@ -15,7 +15,7 @@ cd /var/discourse
 vi containers/app.yml
 ```
 
-Insert below config in `app.yml`:
+Insert or edit below config snippet in `app.yml`. You will need to add this project URL:
 
 ```
 hooks:
