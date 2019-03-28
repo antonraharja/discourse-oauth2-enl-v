@@ -1,10 +1,11 @@
 ## About
 
-| Item         | Info                   |
-| ------------ | ---------------------- |
-| Project      | discourse-oauth2-enl-v |
-| Version      | 0.1                    |
-| Maintainer   | audazel                |
+| Item         | Info                                       |
+| ------------ | ------------------------------------------ |
+| Project      | discourse-oauth2-enl-v                     |
+| Purpose      | Enable OAuth2 with Project V for Discourse |
+| Version      | 0.1                                        |
+| Maintainer   | audazel                                    |
 
 ## Installation
 
@@ -38,7 +39,7 @@ cd /var/discourse
 Visit this page for more information on howto install plugins in Discourse:
 - https://meta.discourse.org/t/install-plugins-in-discourse/19157
 
-# Settings
+## Settings
 
 Get client ID and client secret from Project V
 
