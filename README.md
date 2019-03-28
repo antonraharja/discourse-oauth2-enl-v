@@ -37,3 +37,11 @@ cd /var/discourse
 
 Visit this page for more information on howto install plugins in Discourse:
 - https://meta.discourse.org/t/install-plugins-in-discourse/19157
+
+# Settings
+
+Get client ID and client secret from Project V
+
+The callback URL is `https://<your discourse>/auth/oauth2_enl_v/callback`
+
+Set client ID and client secret from Discourse in `Admin -> Settings -> Login`
